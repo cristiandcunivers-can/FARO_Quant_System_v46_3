@@ -50,4 +50,4 @@ def obtener_analisis(ticker: str):
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-Añadir main.py versión backend V46.3 con URL para Vercel
+#Añadir main.py versión backend V46.3 con URL para Vercel
