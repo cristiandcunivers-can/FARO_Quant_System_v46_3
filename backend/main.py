@@ -23,3 +23,11 @@ def analisis(ticker: str):
 @app.get("/health")
 def health():
     return {"status": "ok"}
+    
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/")
+async def root():
+    return {"status": "FARO Quant System running"}
