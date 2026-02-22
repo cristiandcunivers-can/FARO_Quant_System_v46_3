@@ -7,3 +7,7 @@ app = FastAPI(
 )
 
 app.include_router(api_router)
+
+@app.get("/")
+async def root():
+    return {"message": "FARO Quant System V46 funcionando"}
