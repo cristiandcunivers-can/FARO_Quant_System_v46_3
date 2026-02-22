@@ -1,17 +1,20 @@
 # app/engine.py
 import pandas as pd
-from sklearn.covariance import LedoitWolf
-from scipy.stats import t
 
-def engine_v46p_brain(df: pd.DataFrame, portfolio_dict: dict):
+def engine_v46p_brain(df: pd.DataFrame, portfolio_dict: dict) -> dict:
     """
-    Motor cuantitativo principal.
-    df: DataFrame con datos de precios/historicos
-    portfolio_dict: estructura con pesos y símbolos
+    Motor de ejemplo.
+    Calcula métricas básicas simuladas sobre df y portfolio.
     """
-    if isinstance(df.columns, pd.MultiIndex):
-        # aquí va la lógica de procesamiento
-        pass
-
-    # Ejemplo de retorno mínimo
-    return {"status": "motor ejecutado", "portfolio": portfolio_dict}
+    # Simula algunos cálculos
+    expected_return = round(df.mean().mean() * 0.001, 4)  # ejemplo
+    volatility = round(df.std().mean() * 0.001, 4)
+    sharpe_ratio = round(expected_return / (volatility + 1e-8), 2)
+    
+    return {
+        "status": "motor ejecutado",
+        "portfolio": portfolio_dict,
+        "expected_return": expected_return,
+        "volatility": volatility,
+        "sharpe_ratio": sharpe_ratio
+    }
