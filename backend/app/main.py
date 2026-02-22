@@ -20,3 +20,7 @@ app = FastAPI()
 @app.head("/")
 async def root():
     return {"message": "FARO Quant System V46 funcionando"}
+
+@app.get("/health")
+async def health_check():
+    return {"status": "ok"}
