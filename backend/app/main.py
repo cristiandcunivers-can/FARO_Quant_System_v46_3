@@ -1,51 +1,17 @@
 # app/main.py
-
-from fastapi import FastAPI, HTTPException
-from fastapi.responses import JSONResponse
-import pandas as pd
+from fastapi import FastAPI, Request
+from fastapi.responses import HTMLResponse
 from app.engine import engine_v46p_brain
+from app.ui import render_ui
+import yfinance as yf
 
-# ==========================================
-# Instancia única de FastAPI
-# ==========================================
 app = FastAPI(title="FARO Quant System V46.3")
 
-# ==========================================
-# Health check simple
-# ==========================================
-@app.get("/health")
-async def health_check():
-    """
-    Ruta de verificación de estado.
-    Retorna 'ok' si el servicio está activo.
-    """
-    return JSONResponse(content={"status": "ok"})
+@app.get("/", response_class=HTMLResponse)
+async def index():
+    return await render_ui([], "Neutro")
 
-# ==========================================
-# Ruta principal
-# ==========================================
-@app.get("/")
-async def root():
-    """
-    Ruta principal del sistema.
-    """
-    return JSONResponse(content={"message": "FARO Quant System V46.3 funcionando"})
-
-# ==========================================
-# Ruta Motor Cuantitativo
-# ==========================================
-@app.post("/run-engine")
-async def run_engine(data: dict):
-    """
-    Ejecuta el motor cuantitativo con datos enviados en JSON.
-    data debe contener:
-    - df: lista de listas (simulando DataFrame)
-    - portfolio: diccionario de pesos
-    """
-    try:
-        df = pd.DataFrame(data.get("df"))
-        portfolio_dict = data.get("portfolio", {})
-        result = engine_v46p_brain(df, portfolio_dict)
-        return JSONResponse(content=result)
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+@app.post("/", response_class=HTMLResponse)
+async def analyze(request: Request):
+    # ... tu lógica del bloque 3 ...
+    return await render_ui(ui_display, risk_level, data)
